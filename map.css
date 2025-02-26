@@ -1,16 +1,76 @@
 html, body {
     margin: 0;
-    padding: 5;
+    padding: 5px; /* Ensure correct padding */
     height: 100%;
     width: 100%;
     display: flex;
-    justify-content: center; /* Center horizontally */
-    align-items: center;     /* Center vertically */
+    flex-direction: column; /* Stack map and legend vertically */
+    justify-content: center;
+    align-items: center;
 }
-    
+
 #map {
-    width: 100%;    /* Adjust width to your desired size */
-    height: 100%;   /* Adjust height to your desired size */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Optional: subtle shadow for effect */
-    border-radius: 8px; /* Optional: rounded corners */
+    width: 80%; /* Adjust as needed */
+    height: 80%;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    margin-bottom: 50px; /* Larger gap between map and legend */
+}
+
+#map svg {
+    opacity: 75%;
+    position: absolute;
+    z-index: 1;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+}
+
+circle {
+    --color-departures: steelblue;
+    --color-arrivals: darkorange;
+    --color: color-mix(
+        in oklch,
+        var(--color-departures) calc(100% * var(--departure-ratio)),
+        var(--color-arrivals)
+    );
+    fill: var(--color);
+}
+
+.legend {
+    display: flex;
+    align-items: center;
+    gap: 30px; /* More space between legend items */
+    font-family: Arial, sans-serif;
+}
+
+.legend div {
+    display: flex;
+    align-items: center;
+    gap: 10px; /* Swatch to label spacing */
+}
+
+.legend div::before {
+    content: "";
+    width: 16px; /* Larger, more visible swatches */
+    height: 16px;
+    border-radius: 50%;
+    background-color: var(--color);
+}
+
+.legend div:nth-child(2)::before {
+    --color: #4c78a8; /* Blue for departures */
+}
+
+.legend div:nth-child(3)::before {
+    --color: #966fae; /* Purple for balanced */
+}
+
+.legend div:nth-child(4)::before {
+    --color: #f68f29; /* Slightly bolder orange for arrivals */
+}
+
+.legend-label {
+    font-weight: bold;
+    margin-right: 15px;
 }
